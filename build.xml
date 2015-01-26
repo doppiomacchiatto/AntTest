@@ -1,0 +1,124 @@
+<project name="Sample usage of Salesforce Ant tasks" default="test" basedir="." xmlns:sf="antlib:com.salesforce">
+    <property file="build.properties" />
+    <property environment="env" />
+    <!-- SVN lib-->
+    <path id="svnant.classpath">
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+    <!-- load the svn task -->
+    <typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpathref="svnant.classpath" />
+    <svnSetting svnkit="true" javahl="false" username="${svn.username}" password="${svn.password}" id="svn.settings" />
+	
+    <!-- Test ANT is correctly wired -->
+    <target name="test">
+        <echo message="Starting Deploy" />
+        <sf:deploy username="${sf.username.sbx}" password="${sf.password.sbx}" serverurl="${sf.serverurl.sbx}" deployRoot="singleObject" checkonly="true" />
+        <echo message="Deploy Complete" />
+    </target>
+    
+	<!-- Start exercise 3 -->
+    <target name="exercise3a">
+        <echo message="Starting Deploy 3a" />
+        <sf:deploy username="${sf.username.sbx}" password="${sf.password.sbx}" serverurl="${sf.serverurl.sbx}" deployRoot="exercise3a" runAllTests="true" logType="Detail" rollbackOnError="true" />
+        <echo message="Deploy Complete 3a" />
+    </target>
+    <target name="exercise3b">
+        <echo message="Starting Deploy 3b" />
+        <sf:deploy username="${sf.username.sbx}" password="${sf.password.sbx}" serverurl="${sf.serverurl.sbx}" deployRoot="exercise3b" logType="Detail" rollbackOnError="true" />
+        <echo message="Deploy Complete 3b" />
+    </target>
+    <target name="exercise3c">
+        <echo message="Starting Deploy 3c" />
+        <sf:deploy username="${sf.username.sbx}" password="${sf.password.sbx}" serverurl="${sf.serverurl.sbx}" deployRoot="exercise3c" logType="Detail" rollbackOnError="true" />
+        <echo message="Deploy Complete 3c" />
+    </target>
+    <!-- End exercise 3 -->
+	
+    <!-- Start exercise 5 -->
+    <target name="exercise5">
+        <property name="src.url" value="${base.url}/${projectname}/src" />
+        <property name="dest.url" value="${base.url}/${createbranch}" />
+        <echo message="Source =  ${src.url}" />
+        <echo message="Destination =  ${dest.url}" />
+        
+		<echo message="Deleting existing branch ${dest.url}" />
+        <svn refid="svn.settings" failonerror="false">
+            <delete url="${dest.url}" message="delete" />
+        </svn>
+        
+		<echo message="Checkout ${projectname}" />
+        <svn refid="svn.settings">
+            <checkout url="${src.url}" destPath="exercise5_${createbranch}" />
+        </svn>
+        <echo message="Checkout ${projectname} complete" />
+        
+		<echo message="Copying package.xml" />
+        <copy file="exercise5/package.xml" tofile="exercise5_${createbranch}/package.xml" overwrite="true" />
+        
+		<echo message="Deploying to prod" />
+        <sf:deploy username="${sf.username.prod}" password="${sf.password.prod}" serverurl="${sf.serverurl.prod}" deployRoot="exercise5_${createbranch}/" />
+        <echo message="Deploying to prod complete" />
+        
+		<echo message="Creating branch ${dest.url}" />
+        <svn refid="svn.settings">
+            <copy srcPath="exercise5_${createbranch}" destUrl="${dest.url}" message="New Branch ${createbranch}" makeParents="true" />
+        </svn>
+        <echo message="Branch Created" />
+    </target>
+    <!-- End exercise 5 -->
+	
+	
+	
+	
+	
+	
+    <!-- other tasks that are part of the migration tools samples-->
+    <target name="bulkRetrieve">
+        <sf:bulkRetrieve username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" metadataType="${sf.metadataType}" retrieveTarget="retrieveUnpackaged" />
+    </target>
+    <!-- Retrieve metadata for all the packages specified under packageNames -->
+    <target name="retrievePkg">
+        <sf:retrieve username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" retrieveTarget="retrieveOutput" packageNames="${sf.pkgName}" />
+    </target>
+    <!-- Deploy the unpackaged set of metadata retrieved with retrieveUnpackaged -->
+    <target name="deployUnpackaged">
+        <sf:deploy username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" deployRoot="retrieveUnpackaged" />
+    </target>
+    <!-- Deploy a zip of metadata files to the org -->
+    <target name="deployZip">
+        <sf:deploy username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" zipFile="${sf.zipFile}" pollWaitMillis="1000" />
+    </target>
+    <!-- Shows deploying code & running tests for code in directory -->
+    <target name="deployCode">
+        <!-- Upload the contents of the "codepkg" directory, running the tests for just 1 class -->
+        <sf:deploy username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" deployRoot="codepkg"></sf:deploy>
+    </target>
+    <!-- Shows removing code; only succeeds if done after deployCode -->
+    <target name="undeployCode">
+        <sf:deploy username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" deployRoot="removecodepkg" />
+    </target>
+    <!-- Shows retrieving code; only succeeds if done after deployCode -->
+    <target name="retrieveCode">
+        <!-- Retrieve the contents listed in the file codepkg/package.xml into the codepkg directory -->
+        <sf:retrieve username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" retrieveTarget="codepkg" unpackaged="codepkg/package.xml" />
+    </target>
+    <!-- Shows deploying code, running all tests, and running tests (1 of which fails), and logging. -->
+    <target name="deployCodeFailingTest">
+        <!-- Upload the contents of the "codepkg" package, running all tests -->
+        <sf:deploy username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" deployRoot="codepkg" runAllTests="true" logType="Debugonly" />
+    </target>
+    <!-- Shows check only; never actually saves to the server -->
+    <target name="deployCodeCheckOnly">
+        <sf:deploy username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" deployRoot="codepkg" checkOnly="true" />
+    </target>
+    <!-- Retrieve the information of all items of a particular metadata type -->
+    <target name="listMetadata">
+        <sf:listMetadata username="${sf.username.sbx}" password="${sf.password.sbx}" serverurl="${sf.serverurl.sbx}" metadataType="${sf.metadataType}" />
+    </target>
+    <!-- Retrieve the information on all supported metadata type -->
+    <target name="describeMetadata">
+        <sf:describeMetadata username="${sf.username}" password="${sf.password}" serverurl="${sf.serverurl}" />
+    </target>
+</project>
