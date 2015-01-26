@@ -1,0 +1,346 @@
+<apex:page sidebar="false" showHeader="true" standardStylesheets="false">
+<apex:composition template="Bootstrap_template_SOS"/>
+
+<script type='text/javascript'>
+    window.sosData = window.sosData || {};
+    sforce.connection.sessionId = '{!$Api.Session_ID}';
+    sosData.orgId = "{!$Organization.Id}".substr(0,15);
+    sosData.agentId = "{!$User.Id}";
+    
+    sosData.servicePresence = {
+        name: '{!JSENCODE($Setup.sos_auto_setup__c.service_presence__c)}' || 'SOS Online', 
+        element: 'service-presence'
+    };
+    
+    sosData.routingConfig = {
+        name: '{!JSENCODE($Setup.sos_auto_setup__c.routing_config__c)}' || 'SOS Route', 
+        element:'routing-config'
+    };
+    
+    sosData.queue = {
+        name: '{!JSENCODE($Setup.sos_auto_setup__c.queue__c)}' || 'SOS Queue', 
+        element:'queue'
+    };
+    
+    sosData.permissionSet = {
+        name: '{!JSENCODE($Setup.sos_auto_setup__c.permission_set__c)}' || 'SOS Permission',
+        element: 'permission-set'
+    };
+    
+    sosData.sosDeployment = {
+        name: '{!JSENCODE($Setup.sos_auto_setup__c.deployment__c)}' || 'SOS Deploy', 
+        element: 'sos-deployment'
+    };
+    
+    function setDevNames() {
+        sosData.servicePresence.devName = sosData.servicePresence.name.replace(/ /g,"_");    
+        sosData.routingConfig.devName = sosData.routingConfig.name.replace(/ /g,"_");
+        sosData.queue.devName = sosData.queue.name.replace(/ /g,"_");
+        sosData.permissionSet.devName = sosData.permissionSet.name.replace(/ /g,"_");
+        sosData.sosDeployment.devName = sosData.sosDeployment.name.replace(/ /g,"_");
+    }
+    
+    setDevNames();
+</script>
+
+<apex:includeScript value="/soap/ajax/32.0/connection.js"/>
+<apex:includeScript value="/support/console/32.0/integration.js"/>
+<apex:includeScript value="https://cdn.firebase.com/js/client/1.0.24/firebase.js"/>
+<apex:includeScript value="{!$Resource.sos_sha256}"/>
+<apex:includeScript value="{!$Resource.sos_underscore}"/>
+<apex:includeScript value="{!$Resource.sos_firebase}"/>
+
+<apex:stylesheet value="{!$Resource.sos_setup_style}"/>
+
+<h1>SOS Quick Setup</h1>
+
+<div class="accordion" id="accordion2">
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse_1">
+                <span>1</span>Check Org Requirements
+            </a>
+        </div>
+        <div id="collapse_1" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <ul>
+                    <li>
+                        <span class='bold'>Salesforce Winter'15 Release</span> - <span id='release-pass' class='pass'>PASS</span>
+                    </li>
+                    
+                    <li>
+                        <span class='bold'>SOS Service Channel Exists</span> - <span id='service-channel-status' class='pass'>PASS</span>
+                        <span id='service-channel-edit' class='p-like'>
+                            To make changes to the "SOS" Service Channel <a href='/0N9' target='_blank'>click here</a>.
+                        </span>
+                    </li>
+                    
+                    <li>
+                        <span class='bold'>SOS Enabled</span> - <span id='sos-session-status' class='pass'>PASS</span>
+                    </li>
+                    
+                    <li>
+                        <span class='bold'>Service Presence Enabled</span> - <span id='service-presence-status' class='pass'>PASS</span>
+                    </li>
+                </ul>
+                
+                <h4 id='bothPass' class='limegreen'></h4>
+                <div id='email-nick' class='p-like hideit'>
+                    Please email <a href="mailto:nksiezopolski@salesforce.com?Subject=Please%20enable%20SOS%20for%20OrgId%20{!$Organization.Id}" target="_top">nksiezopolski@salesforce.com</a>
+                    with the OrgId <strong>{!$Organization.Id}</strong> and ask for SOS to be enabled.
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse_2">
+                <span>2</span>Adding Presence Widget
+            </a>
+        </div>
+        <div id="collapse_2" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <a href="/02u" class="mybutton" target="_blank">Go to Apps</a>
+                <p>
+                    To add the Presence Widget press the "Go to Apps" button. Click "Edit" for the app you are
+                    going to update (ex: Sample Console). Add "Service Presence" to the selected console
+                    components. You will also need to add the following to whitelisted domains:
+                    <br/><code class='source'>sos-api-stg.goinstant.org,sos-api.goinstant.net</code>
+                </p>
+             
+
+                <apex:image value="{!$Resource.sos_update_app2}"/>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse_auto">
+                <span>3</span>SOS Auto Setup
+            </a>
+        </div>
+        <div id="collapse_auto" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <h2>
+                    SOS Object Creation
+                </h2>
+                <p>
+                    There are five objects that must be created. Below you can change the name or use the default names.
+                </p>
+                <br/>
+                <div>
+                    <label class='auto-labels'>Service Presence:</label> <input type='text' id='service-presence-name' class='auto-names'/>
+                </div>
+                <div>
+                    <label class='auto-labels'>Routing Configuration:</label> <input type='text' id='routing-config-name' class='auto-names'/>
+                </div>
+                <div>
+                    <span class='auto-labels'>Queue:</span> <input type='text' id='queue-name' class='auto-names'/>
+                </div>
+                <div>
+                    <span class='auto-labels'>Permission Set:</span> <input type='text' id='permission-set-name' class='auto-names'/>
+                </div>
+                <div>
+                    <span class='auto-labels'>SOS Deployment:</span> <input type='text' id='sos-deployment-name' class='auto-names'/>
+                </div>
+
+                
+                <p>
+                    Clicking Create will magically configure all the routing and deployments you need to demo SOS successfully. In the background it sets up omni-channel routing, agent presence and the SOS deployment.
+                    <br/>
+                    
+                    <button id='auto-setup' class='mybutton nofloat'>
+                        Create
+                    </button>
+                </p>
+                <div class='p-like hideit' id='create-results'>
+                    <h3>
+                        SOS Object Creation Results
+                    </h3>
+                    <ul>
+                        <li>
+                            <span class='bold'>Service Presence:</span> <span id='service-presence-result'></span> - <span id='service-presence-msg'></span> <a id='service-presence-edit-link' target='_blank'>Edit</a>
+                        </li>
+                        <li>
+                            <span class='bold'>Routing Configuration:</span> <span id='routing-config-result'></span> - <span id='routing-config-msg'></span> <a id='routing-config-edit-link' target='_blank'>Edit</a>
+                        </li>
+                        <li>
+                            <span class='bold'>Queue:</span> <span id='queue-result'></span> - <span id='queue-msg'></span> <a id='queue-edit-link' target='_blank'>Edit</a>
+                        </li>
+                        <li>
+                            <span class='bold'>Permission Set:</span> <span id='permission-set-result'></span> - <span id='permission-set-msg'></span> <a id='permission-set-edit-link' target='_blank'>Edit</a>
+                        </li>
+                        <li>
+                            <span class='bold'>SOS Deployment:</span> <span id='sos-deployment-result'></span> - <span id='sos-deployment-msg'></span> <a id='sos-deployment-edit-link' target='_blank'>Edit</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div id='setup-users' class='p-like hideit'>
+                    <h3>
+                        User Setup
+                    </h3>
+                    <p>
+                        Each user that requires access to SOS <span class='bold'>must</span> be added to the Queue, Permission Set, and have Service Cloud enabled. To do this, you can either search for specific Users OR you can use the drop-down to select the required Users. Once you have selected the User, go ahead and press 'Add User'. You will then see 3 tests that run to ensure you have added the User correctly. Once you see PASS on all 3 tests, you are free to move on to Step 4.
+                    </p>
+
+                    <input id='search-setup-users' type='text' />
+                    <button id='find-setup-users-button' class='mt'>Find</button>
+                    <button id='clear-setup-search-button' class='mt'>Clear</button>
+                    <br/><select id='setup-user-list'></select>
+                    <button id='setup-user-button' class='mt'>Add User</button>
+                    
+                </div>
+                <ul id='setup-user-result' class='check-user hideit'>
+                    <li>
+                        Service Cloud Enabled:
+                        <span id='service-cloud' class='fail'>FAIL</span>
+                        <span class='info' id='service-cloud-info'></span>                     
+                    </li>
+                    
+                    <li>
+                        Permission Set Assigned:
+                        <span id='permission-set-assigned' class='fail'>FAIL</span>
+                        <span class='info' id='permission-set-assigned-info'></span>
+                    </li>                 
+                    <li>
+                        Queue Member:
+                        <span id='queue-member' class='fail'>FAIL</span>
+                        <span class='info' id='queue-member-info'></span>
+                    </li>
+                </ul>
+
+                <span id='user-setup-notify' class='notify-info'></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a id='accord5' class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse_5">
+                <span>4</span>Info for SOS Demo App
+            </a>
+        </div>
+        <div id="collapse_5" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <h3>
+                    Connecting the App to this Org
+                </h3>
+
+                <p>
+                    Please enter your <span class='italic'>@salesforce</span> email. Your email address is used to sync the Deployment and
+                    Demo Details to the SOS Demo app. You will also be asked to enter this exact email address
+                    when you first configure the SOS Demo App. Once you have entered you <span class='italic'>@salesforce</span> email, please press 'Save' to continue.
+                </p>
+                <input type='text' id='sfdc-email' placeholder='Example: jsmith@salesforce.com' value="{!JSENCODE($Setup.sos_quick_setup__c.sfdc_email__c)}"/>
+                <button id='load-settings' class='mt'>Save</button> <span id='email-info' class='notify-info'></span>
+                <div class='hideit stored-settings'>
+                    <h3>
+                        Configuration
+                    </h3>
+     
+                    <p>
+                        Now you are ready to create a new Deployment and Demo Details. These settings will connect
+                        your demo Org to the SOS Demo App. Simply fill out the required fields and these
+                        settings will be saved and sync’d for easy demoing!
+                    </p>
+                    <h4>
+                        Deployment Details
+                    </h4>
+                    <p>
+                        Here is where you will need to choose the SOS Deployment. Simply choose the SOS Deployment that you named in Step 3. You can also give it a Nickname for easy reference.
+                      <br/>
+                        <br/><select id='deployment-list'></select>
+                        <br/><input type='text' id='org-nickname' placeholder='Example: USAA Demo Org'/>
+                        <button id='save-nickname' class='mt'>Set Nickname</button> <span id='nickname-info' class='notify-info'></span>
+                    </p>
+                    <code class="source">
+                        Org ID: <span id='org-id'></span>
+                        <br/>SOS Deployment ID: <span id='deploy_id'>Select Deployment Above</span>
+                        <br/>Live Agent API Endpoint: <a href='/liveagent/settings.apexp' target='_blank' class='la-info'>Found here</a><span id='la-hostname'></span>
+                        <span class='la-info'>(*Note: Only hostname is required)</span>
+                    </code>
+                    <p class='la-info'>
+                        <br/>
+                        <span class='italic'>*If</span> LA API endpoint https://d.la.gus.salesforce.com/chat/rest/ then only <span class="bold">d.la.gus.salesforce.com</span> would be required.
+                    </p>
+                </div>
+                <br/>
+                <div class='hideit p-like stored-settings'>
+                    <h4>
+                        Demo Details
+                    </h4>
+                    <br/>
+                    <select id='stored-demos'></select><br/>
+
+                    <p>
+                        Enter your the details of your demo. Later you will be able to select this Demo Nickname in the SOS Demo App.
+                    </p>
+                    <label>Nickname: </label><input type='text' id='demo-nickname' class='demo-input' placeholder='Example: USAA' title='abc'/>
+                    <br/>
+                    <label>Start URL:  </label><input type='text' id='demo-url' class='demo-input' placeholder='https://mobile.usaa.com' /> 
+                    <span class='instruct1'>Please enter the start URL of the mobile responsive website you want to demo.</span>
+                    <br/>
+                    <label>Contact Email: </label><input type='text' id='demo-email' class='demo-input' placeholder='lauren@example.com' /> 
+                    <span class='instruct2'>Please enter the contact email of the customer. This will be the Contact that is attached to the SOS session. <a href='/003' target='_blank'>View Contacts</a></span>
+                    <br/>
+                    <button id='save-demo' class='mt'>Save</button> <button id='delete-demo' class='mt'>Delete</button>
+                    <span id='demo-info' class='notify-info'></span>
+                    <br/>
+                </div>
+                <div class='hideit p-like stored-settings'>
+                    <h4>
+                        Delete Demo Orgs 
+                    </h4>
+                    <br/>
+                    Here you can see all the Orgs and SOS Deployment details you have saved. You can delete old SOS Deployments and Demo Orgs here.
+                    <br/>
+                    <select id='stored-orgs'></select> <span id='org-notify' class='notify-info'></span>
+                    <br/>
+                    <code class="hideit source org-info">
+                        Org ID: <span id='selected-org-id'></span>
+                        <br/>SOS Deployment ID: <span id='selected-deploy-id'></span>
+                        <br/>Live Agent API Endpoint: <span id='selected-la-hostname'></span>
+                    </code>
+                    <br/>
+                    <button id='delete-org' class='hideit org-info'>
+                        Delete Org
+                    </button>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-group">
+        <div class="accordion-heading">
+            <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse_6">
+                <span>5</span>Download SOS Demo App
+            </a>
+        </div>
+        <div id="collapse_6" class="accordion-body collapse">
+            <div class="accordion-inner">
+                <p>
+                    Download the SOS Demo App by visiting this URL on your mobile iOS phone:
+                    <br/><code class='source'>http://sos.goinstant.com/pilot/ios/se-demo</code>
+                </p>
+                <div class="cta-qr left">
+                    <p>Scan this code for a quick link to the download page:</p>
+                    <apex:image value="{!$Resource.sos_qr_mobile}"/>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+    
+</div>
+
+<script type='text/javascript' src="{!$Resource.sos_quick_setup}"></script>
+<script type='text/javascript' src="{!$Resource.sos_auto_setup}"></script>
+
+
+</apex:page>

@@ -1,0 +1,20 @@
+<apex:page showHeader="false" sidebar="false" standardStylesheets="false" docType="html-5.0" controller="IdMeControllerV2" action="{!init}" >
+
+         <apex:define name="body">
+            <div class="content-container journey-page">
+               <div class="spacer"/>
+                <apex:pageBlock >
+                <h1>ID.Me Authentication</h1>
+                <br></br>
+                <apex:outputPanel id="response" layout="block">
+                <p>{!message}</p>
+                <p>User affiliation: {!affiliation}</p>
+                <p>User email: {!email}</p>
+                <a href="{!$Page.mypage}" class="blue-btn left">
+                                Continue</a>
+                </apex:outputPanel>
+                </apex:pageBlock>
+                <apex:pageMessages id="errors" />
+               </div>
+        </apex:define>
+</apex:page>

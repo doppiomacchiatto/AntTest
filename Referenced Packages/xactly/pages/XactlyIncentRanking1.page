@@ -1,0 +1,969 @@
+<apex:page showHeader="false" sidebar="false" docType="html-5.0" >
+    <!--<link href="{!URLFOR($Resource.XactlyTabResource1,'jquery-coverflow-slider/jquery.coverflow.slider.css')}" type="text/css" rel="stylesheet" media="screen and (min-width:481px)"/>
+    <link href="{!URLFOR($Resource.XactlyTabResource1,'jquery-coverflow-slider/jquery.coverflow.slider-mini.css')}" type="text/css" rel="stylesheet" media="screen and (min-width:320px) and (max-width:480px), only screen and (min-device-width:320px) and (max-device-width:568px)"/> -->
+    <!--<link rel="stylesheet" media="" href="{!URLFOR($Resource.XactlyTabResource1,'jquery-coverflow-slider/jquery.coverflow.slider-mini.css')}" />-->
+    <link href="{!URLFOR($Resource.XactlyTabResource1,'jquery-coverflow-slider/jquery.coverflow.slider-mini.css')}" type="text/css" rel="stylesheet"/>
+    <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.XactlyTabResource1, 'jquery-ui-1.9.2/js/jquery-1.8.3.min.js')}"></script>
+    <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.XactlyTabResource1, 'jquery-coverflow-slider/jquery.coverflow.slider.js')}"></script>
+    <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.XactlyTabResource1, 'jquery-ui-1.9.2/js/jquery-ui-1.9.2.custom.min.js')}"></script>
+    <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.XactlyTabResource1, 'jquery-blockUI/jquery.blockUI.min.js')}"></script>
+    <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.XactlyTabResource1, 'js/xtab.js')}"></script>    
+    <apex:stylesheet value="{!URLFOR($Resource.XCDF13__XactlyTabResource1,'jquery-ui-1.9.2/css/ui-lightness/jquery-ui-1.9.2.custom.min.css')}"/>
+    <!-- <link media="only screen and (min-width:481px)" href="{!URLFOR($Resource.XactlyTabResource1,'css/xtab.css')}" rel="stylesheet"/>
+    <link rel="stylesheet" media="only screen and (min-width:20px) and (max-width:480px), only screen and (min-device-width:320px) and (max-device-width:568px)" href="{!URLFOR($Resource.XactlyTabResource1,'css/xtab-mobile.css')}" />-->
+    <!--<link rel="stylesheet" media="" href="{!URLFOR($Resource.XactlyTabResource1,'css/xtab-mobile.css')}" />-->
+    <link rel="stylesheet" href="{!URLFOR($Resource.XactlyTabResource1,'css/xtab-mobile.css')}" />
+    <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.XactlyTabResource1, 'gauge-plugin/gauge.js')}"></script>
+<div class="xtab-header-container">
+               <div class="xtab-logo-icon">
+                    <apex:image url="{!URLFOR($Resource.XCDF13__XactlyTabResource1, 'images/xtab_logo.png')}" styleClass="xtab-logo"/>                                                            
+                    <span id="attainment-count" class="xtab-attainment-count" style="display:none"></span>
+                    <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/xtab_trophy.png')}" class="xtab-trophy-icon" id="trophy-icon-dark" style="display:none"/>
+                    <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/transparent_trophy.png')}" class="xtab-trophy-icon" id="trophy-icon-transparent"/>
+                </div>
+            </div>
+           <div class="content">
+<div class="links-div">
+                        <a href="" style="text-decoration: none;cursor:pointer;" id="show-statement">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/blank.gif')}" class="link-show-statement"/>
+                        </a>
+                        <a href="" style="text-decoration: none;cursor:pointer" id="show-ranking">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/blank.gif')}" class="link-show-ranking-inactive"/>                            
+                        </a>
+                    </div>
+                    
+                    
+   <!-- out put panel for displaying incentive statement -->
+           <div id="incentive-div">
+           <apex:outputPanel >
+              <apex:include pageName="XCDF13__XactlyIncentiveStatement"/>
+            </apex:outputPanel>
+           </div>           
+         <div id="pageLoader" style="display:none;" class="pageLoader">
+            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/progressBar.gif')}"/>
+        </div>
+        <div id="ranking-div" style="display:none">
+        <div style="float:left;" onclick="hideShowRanking();">Back</div>
+<script defer="defer">
+  function hideShowRanking(){
+    document.getElementById("ranking-div").style.display='none';
+    document.getElementById("incentive-div").style.display='';
+    /*
+    var incentive=jQuery("#incentive-div"); 
+    var ranking=jQuery("#ranking-div"); 
+    alert(ranking.css("display"));
+    alert(incentive.css("display"));
+    
+    if(ranking.css("display")=='none'){
+        ranking.addClass("showbody");
+    }else{
+        ranking.addClass("hidebody");
+    }
+    if(incentive.css("display")=='none'){
+        incentive.addClass("showbody");
+    }else{
+        incentive.addClass("hidebody");
+    }
+    */
+  }
+  function appendEl(){
+  //var $anch=$("<a href='javascript:void(0);' data-aura-rendered-by='728:1.1' class='oneIcon oneHeaderButton back hidden' data-key='back' data-icon=''/>");
+    //alert($("header"));
+    //$("header").append($anch);
+  }
+  </script>
+  <div style="background-color:blue;">
+  <a id="backbutton" href="javascript:void(0);" data-aura-rendered-by="728:1.1" class="backButton" data-key="back" data-icon=""><!----><span class="assistiveText">Back</span></a>
+  </div>
+  <div id="appender">Append</div>
+  
+        <div class="rank-slider">
+           <div id="contentSlider-2">
+            <ul>
+                <li class="selected">
+                    <div class="rankingGroupSelect">
+                        <input type="hidden" value="GRP1" />
+                        <span>Attainment Ranking</span><label class="individual-rank">1st</label>
+                        <div class="bottom-border-div">
+
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="rankingGroupSelect">
+                        <input type="hidden" value="GRP2" />
+                        <span>Product Revenue Ranking</span><label class="individual-rank">6th</label><div class="bottom-border-div">
+
+                        </div>
+                    </div>
+                </li>
+                <li class="">
+                    <div class="rankingGroupSelect">
+                        <input type="hidden" value="GRP3" />
+                        <span>Total Margin Quota Ranking</span><label class="individual-rank">5th</label>
+                        <div class="bottom-border-div">
+
+                        </div>
+                    </div>
+                </li>
+            </ul>
+           </div>
+           </div>               
+            <div class="xtab-table-container" id="group-1">
+            <div class="xtab-table-row xtab-row-highlight">
+                        <div class="highlight-rank">
+                            <span>1</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}" />
+                        </div>
+                        <div class="rep-name">
+                            Tony Smith
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>                        
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            236%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>2</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Chris Walker
+                        </div>
+                        <div class="rep-title">
+                            Director
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            96%
+                        </div>
+                    </div>                  
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>3</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            George Baker
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            93%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>4</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Brianna Paterson
+                        </div>
+                        <div class="rep-title">
+                            Account Executive (EMEA)
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            90%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>5</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Andrew Young
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            85%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>6</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Lukas Muller
+                        </div>
+                        <div class="rep-title">
+                            Account Executive (EMEA)
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            81%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>7</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Raymond Church
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            80%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>8</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Eric Paterson
+                        </div>
+                        <div class="rep-title">
+                            Director
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            69%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>9</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Judy Brophy
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            68%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>10</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Gerald Haney
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            66%
+                        </div>
+                    </div>
+            </div>
+            <div class="xtab-table-container" id="group-2" style="display: none">
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>1</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Maria García
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            66%
+                        </div>
+                    </div>                  
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>2</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Bill Moore
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            64%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>3</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Wendy Chiesa
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            63%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>4</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Barbara Wilson
+                        </div>
+                        <div class="rep-title">
+                            Vice President
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            63%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>5</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Erica Ledoux
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            62%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row xtab-row-highlight">
+                        <div class="highlight-rank">
+                            <span>6</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Tony Smith
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            62%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>7</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Gail Ambriz
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            59%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>8</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Paula Owens
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            57%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>9</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Dorothy Kearns
+                        </div>
+                        <div class="rep-title">
+                            Director
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            55%
+                        </div>
+                    </div>              
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>10</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Yvonne Jones
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            52%
+                        </div>
+                    </div>
+                </div>
+                    <div class="xtab-table-container" id="group-3" style="display: none">
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>1</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Brittany Nelson
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            51%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>2</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Ryan Lewis
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            47%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>3</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Dominik Volakova
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            45%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>4</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Lisa Clark
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            42%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row xtab-row-highlight">
+                        <div class="highlight-rank">
+                            <span>5</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Tony Smith
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            41%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>6</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Zach Ledford
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            36%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>7</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Jonathan Wall
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            36%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>8</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Michael Peterson
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            35%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>9</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Charlot Bordeaux
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            28%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>10</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            John Liles
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            26%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>11</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Allen Martinez
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            25%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>12</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Mark Wright
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            24%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>13</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Lukas Vogler
+                        </div>
+                        <div class="rep-title">
+                            Director
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            23%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>14</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Vanessa Mitchell
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            22%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>15</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Michelle Bailey
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            20%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>16</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Charles Harris
+                        </div>
+                        <div class="rep-title">
+                            Director of Solutions Consulting
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            0%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>16</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Joseph Cooper
+                        </div>
+                        <div class="rep-title">
+                            Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            0%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>16</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Arla Sanders
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            0%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>16</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Betty Young
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            0%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>16</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Thomas Whitham
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            0%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>16</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Deborah Collins
+                        </div>
+                        <div class="rep-title">
+                            Solutions Consultant
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            0%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>16</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Ed Roberts
+                        </div>
+                        <div class="rep-title">
+                            Solutions Consultant
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            0%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>16</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Carol Adams
+                        </div>
+                        <div class="rep-title">
+                            Account Executive
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            0%
+                        </div>
+                    </div>
+                    <div class="xtab-table-row">
+                        <div class="incent-rank">
+                            <span>16</span>
+                        </div>
+                        <div class="rep_image rounded-corners">
+                            <img src="{!URLFOR($Resource.XactlyTabResource1, 'images/default.png')}"/>
+                        </div>
+                        <div class="rep-name">
+                            Lucas Chandler
+                        </div>
+                        <div class="rep-title">
+                            Solutions Consultant
+                        </div>
+                        <div class="repui-progressbar" style="border-radius:0px;-webkit-border-radius:0px">
+                        </div>
+                        <div class="attainment">
+                            0%
+                        </div>
+                    </div>
+            </div>     
+             
+        </div>
+        
+        <div class="xtab-table-bottom">
+                <span>Up to JUL-2013</span>
+                </div>
+                <div class="mobile-links-div" onclick="hideShowRanking();">
+                    <a href="" style="text-decoration: none;cursor:pointer;position:relative;margin-bottom:176%;" id="show-statement">
+                            <span class="ranking_butn" id="statement_butn">Dashboard</span>
+                        </a>
+                </div>
+                <div class="horizontal-separator" style="margin-bottom: 0px">
+                </div>
+               
+        </div>      
+</apex:page>

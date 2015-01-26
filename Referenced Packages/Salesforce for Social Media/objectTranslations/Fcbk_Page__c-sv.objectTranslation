@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <article>Definite</article>
+        <plural>false</plural>
+        <value>Facebooksidan</value>
+    </caseValues>
+    <caseValues>
+        <article>Indefinite</article>
+        <plural>false</plural>
+        <value>Facebooksida</value>
+    </caseValues>
+    <caseValues>
+        <article>None</article>
+        <plural>false</plural>
+        <value>Facebooksida</value>
+    </caseValues>
+    <caseValues>
+        <article>Definite</article>
+        <plural>true</plural>
+        <value>Facebooksidorna</value>
+    </caseValues>
+    <caseValues>
+        <article>Indefinite</article>
+        <plural>true</plural>
+        <value>Facebooksidor</value>
+    </caseValues>
+    <caseValues>
+        <article>None</article>
+        <plural>true</plural>
+        <value>Facebooksidor</value>
+    </caseValues>
+    <fields>
+        <label>Kategori</label>
+        <name>Category__c</name>
+    </fields>
+    <fields>
+        <label>Beskrivning</label>
+        <name>Description__c</name>
+    </fields>
+    <fields>
+        <label>Aktivera automatiskt kundcaseskapande</label>
+        <name>Enable_Auto_Case_Creation__c</name>
+    </fields>
+    <fields>
+        <label>Foto</label>
+        <name>Facebook_Image__c</name>
+    </fields>
+    <fields>
+        <label>Facebook-ID</label>
+        <name>Fcbk_Id__c</name>
+    </fields>
+    <fields>
+        <label>Bild</label>
+        <name>Image__c</name>
+    </fields>
+    <fields>
+        <label>Starttid för sista sökningen</label>
+        <name>Last_Time_Run__c</name>
+    </fields>
+    <fields>
+        <label>Gillar</label>
+        <name>Likes__c</name>
+    </fields>
+    <fields>
+        <label><!-- Bring In Private Messages --></label>
+        <name>PM_Bring_In__c</name>
+    </fields>
+    <fields>
+        <help><!-- When enabled, any Post by this Facebook page containing #ch will be automatically posted to the Chatter Feed of the Facebook Page creator. Comments on this post in Chatter will not be sent to Facebook. --></help>
+        <label>Lägg till inlägg med #ch till Chatter</label>
+        <name>Post_Hashtag_Chatter__c</name>
+    </fields>
+    <fields>
+        <label>Produkter</label>
+        <name>Products__c</name>
+    </fields>
+    <fields>
+        <label>Kör Case Association Logic</label>
+        <name>Run_Case_Association_Logic__c</name>
+    </fields>
+    <fields>
+        <label>Hämtar inlägg och kommentarer sedan</label>
+        <name>Search_Lower_Limit_Time__c</name>
+    </fields>
+    <fields>
+        <label>Hämtar inlägg och kommentarer till</label>
+        <name>Search_Upper_Limit_Time__c</name>
+    </fields>
+    <fields>
+        <label>Okända användare</label>
+        <name>Unknown_Users__c</name>
+        <picklistValues>
+            <masterLabel>Create Contact</masterLabel>
+            <translation><!-- Create Contact --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Create Lead</masterLabel>
+            <translation><!-- Create Lead --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Create Person Account</masterLabel>
+            <translation><!-- Create Person Account --></translation>
+        </picklistValues>
+        <picklistValues>
+            <masterLabel>Do Nothing</masterLabel>
+            <translation><!-- Do Nothing --></translation>
+        </picklistValues>
+    </fields>
+    <fields>
+        <label>Godkänd</label>
+        <name>Valid__c</name>
+    </fields>
+    <fields>
+        <label><!-- Temp. Private Message Search Timestamp --></label>
+        <name>tmpPrivateMessageTimestamp__c</name>
+    </fields>
+    <fields>
+        <label><!-- Temp. Paging Token --></label>
+        <name>untilTimeStamp__c</name>
+    </fields>
+    <gender>Neuter</gender>
+    <layouts>
+        <layout>FCBK Page Layout</layout>
+        <sections>
+            <label><!-- Search Configuration --></label>
+            <section>Search Configuration</section>
+        </sections>
+    </layouts>
+    <nameFieldLabel>Namn</nameFieldLabel>
+    <validationRules>
+        <errorMessage>För att aktivera skapande av kundcase måste du aktivera kundcaseassociering</errorMessage>
+        <name>Auto_Case_Association_Logic</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage><!-- Invalid Facebook Id --></errorMessage>
+        <name>Facebook_Id_not_empty</name>
+    </validationRules>
+    <validationRules>
+        <errorMessage>Fram-till-datum för att hämta inlägg och kommentarer måste vara senare än efter-datum för att hämta inlägg och kommentarer</errorMessage>
+        <name>until_date_greater_than_since</name>
+    </validationRules>
+    <webLinks>
+        <label>Hämta sidinfo</label>
+        <name>Get_Page_Info</name>
+    </webLinks>
+    <webLinks>
+        <label>Återkalla Facebook-åtkomst</label>
+        <name>Revoke_Facebook_Access</name>
+    </webLinks>
+    <webLinks>
+        <label>Schemalägg Facebooksidsökningar</label>
+        <name>Schedule_Facebook_Pages_Searches</name>
+    </webLinks>
+    <webLinks>
+        <label>Godkänn</label>
+        <name>Validate</name>
+    </webLinks>
+</CustomObjectTranslation>

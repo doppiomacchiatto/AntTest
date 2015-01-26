@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Xactly Express SDO</fullName>
+    <apiAccessLevel>Unrestricted</apiAccessLevel>
+    <namespacePrefix>xcsdo</namespacePrefix>
+    <types>
+        <members>XactlyExpressDefinePayments1</members>
+        <members>XactlyExpressDefinePayments2</members>
+        <members>XactlyExpressDefinePayments3</members>
+        <members>XactlyExpressDefinePayments4</members>
+        <members>XactlyExpressDefinePayments5</members>
+        <name>ApexComponent</name>
+    </types>
+    <types>
+        <members>XactlyExpressDashboard</members>
+        <members>XactlyExpressEstimator</members>
+        <members>XactlyExpressPaymentDetails</members>
+        <members>XactlyExpressQuotaResult</members>
+        <name>ApexPage</name>
+    </types>
+    <types>
+        <members>completeAllData</members>
+        <name>CustomLabel</name>
+    </types>
+    <types>
+        <members>CustomLabels</members>
+        <name>CustomLabels</name>
+    </types>
+    <types>
+        <members>Xactly</members>
+        <name>CustomTab</name>
+    </types>
+    <types>
+        <members>Quota Results</members>
+        <name>HomePageComponent</name>
+    </types>
+    <types>
+        <members>SDOpages</members>
+        <name>StaticResource</name>
+    </types>
+    <version>31.0</version>
+</Package>

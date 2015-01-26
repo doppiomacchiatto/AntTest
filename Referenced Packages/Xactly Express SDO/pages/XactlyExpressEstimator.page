@@ -1,0 +1,249 @@
+<apex:page standardController="Opportunity">
+  <apex:stylesheet value="{!URLFOR($Resource.xcsdo__SDOpages, 'css/XactlySMBFontStyles.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.xcsdo__SDOpages, 'css/XactlySMBStyles.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.xcsdo__SDOpages, 'css/XactlySMBStackedBarCharts.css')}" />
+    <apex:stylesheet value="{!URLFOR($Resource.xcsdo__SDOpages, 'pages/css/XactlySMBOpportunityExt.css')}" />
+     <body onload="if(this.bodyOnLoad)bodyOnLoad();" onbeforeunload="if(this.bodyOnBeforeUnload){var s=bodyOnBeforeUnload();if(s)return s;}" onunload="if(this.bodyOnUnload)bodyOnUnload();" onfocus="if(this.bodyOnFocus)bodyOnFocus();" class="hasMotif opportunityTab  apexPageInline sfdcBody brandQuaternaryBgr  ext-gecko ext-gecko3">
+         <!-- Main Body Starts Here -->
+         <span id="j_id0"></span>
+         <div id="main_wrapper">
+             <div id="mainOverlay" style="opacity: 0.7; position: absolute; top: 29px; width: 1090px; background: none repeat scroll 0% 0% white; height: 372px; z-index: 9999999; display: none;">
+                 <div id="cursor1" style="width:32px; height:32px; margin-top:164px;margin-left:530px;index: 99999999; border: none; padding:0px">
+                     <img src="{!URLFOR($Resource.SDOpages, 'img/icons/loader3.gif')}"></img>
+                 </div>
+             </div>
+             <div id="header">
+                 <div id="header_left">
+                     <img id="chatterImageProfile" src="{!URLFOR($Resource.SDOpages, 'img/icons/EstimatorImage.png')}" height="28px" width="28px"></img>
+                 </div>
+                 <div id="header_content" style="max-width:1050px; width:1050px;">
+                     <div class="font_size_1 font_color_2" id="save_settings_message" style="margin-top:5px;float: right;">&nbsp;</div>
+                     <div class="font_size_2 font_color_2" style="margin-top:5px;float: left;">Estimate:&nbsp;</div>
+                     <div class="font_size_2 AUTOMamountEarned" id="amountEarned" style="float: left;margin-top: 5px;margin-left: 11px;"></div>
+                 </div>         
+             </div>
+             <div style="clear:both;height:0px;"></div>
+             <div id="content">            
+                 <div class="AUTOleft_panel_content" id="left_panel">                
+                     <div class="AUTOMleft_chart_scale_top left_chart_scale_top" id="left_chart_scale_top" style="position: relative; top: 40px;">
+                         <div class="bubbleText ">
+                             <span>8K</span>
+                         </div>
+                     </div>                
+                     <div class="btn_to_normal floatleft" style="margin-top:92px">
+                         <div class="AUTObtn_left_to_left btn_to_disabled_left" id="left_panel_btn_to_left" onmouseout="jQuery(jQuery(this).parent()).addClass('btn_to_normal');jQuery(jQuery(this).parent()).removeClass('btn_to_hover');" onmouseover="jQuery(jQuery(this).parent()).removeClass('btn_to_normal');jQuery(jQuery(this).parent()).addClass('btn_to_hover');">&nbsp;</div>
+                     </div>
+                     <div class="AUTOleft_panel_content2 content_2 floatleft" id="left_panel_content_2">                    
+                         <div>
+                             <div class="font_size_2 font_color_2" style="margin-left:30px;">PAYOUT</div>
+                             <div style="clear:both;height:0px;"></div>
+                             <div style="float:left;margin-left:20px;width:1px;border-right:solid 1px #dddddd;height:200px">&nbsp;</div>
+                             <div id="char_wrapper_left">
+                                 <div id="char_content_left" class="AUTOchar_content_left">
+                              &nbsp;
+                            
+                                 
+                             </div>
+                         </div>
+                         <div style="clear:both;height:0px;"></div>
+                         <div style="float:left;margin-left:-20px;width:500px;border-bottom:solid 1px #dddddd;height:1px">&nbsp;</div>                       
+                     </div>
+                     <div style="clear:both;height:0px;"></div>
+                     <div class="AUTOpaginator_wrapper_left paginator_wrapper" id="paginator_wrapper_left_side">
+                         &nbsp;
+                     </div>                    
+                     <div style="clear:both;height:0px;"></div>                    
+                     <div class="AUTOleft_side_values_wrapper" id="wraper_values_left_side">                        
+                         <div style="width:45%;margin-top:20px;float:left;">
+                             <div class="floatright">
+                                 <div>
+                                     <div class="floatleft font_size_2 font_color_2" style="padding-top:10px;margin-right:5px;">now</div>
+                                     <div class="AUTOestimated_value floatleft font_size_3 font_color_3" id="value_wrapper_estimated" style="padding-top:0px;">
+                                         <span id="j_id0:j_id7">
+                                             <span id="j_id0:j_id7:j_id8:j_id9" style="*padding-left:1px;" class="bubbleText ">
+                                                 <span class="trigger" style="font-size:24px;">No Estimate Run&nbsp;</span>
+                                             </span>
+                                         </span>
+                                     </div>
+                                 </div>
+                                 <div style="clear:both;height:1px;"></div>
+                             </div>
+                         </div>
+                         <div style="width:10%;float:left;">
+                             <div style="width:1px;border-right:solid 1px #dddddd;margin-left:auto;margin-right:auto;height:60px;margin-top:10px">&nbsp;</div>
+                         </div>
+                         <div style="width:45%;margin-top:20px;float:left;">
+                             <div class="floatleft font_size_2 font_color_3" style="padding-top:10px;margin-right:5px;">was</div>
+                             <div class="AUTOcalculated_value floatleft font_size_3 font_color_2" id="value_wrapper_before" style="padding-top:0px;">
+                                 <span id="j_id0:j_id18">
+                                     <span id="j_id0:j_id18:j_id19:j_id20" class="bubbleText ">
+                                         <span class="" style="">&nbsp;</span>
+                                     </span>
+                                 </span>                            
+                             </div>
+                             <div style="clear:both;height:0px;"></div>                   
+                         </div>                   
+                     </div>
+                 </div>
+                 <div class="floatright btn_to_normal" style="margin-top:92px">
+                     <div class="AUTObtn_left_to_right btn_to_disabled_right" id="left_panel_btn_to_right" onmouseout="jQuery(jQuery(this).parent()).addClass('btn_to_normal');jQuery(jQuery(this).parent()).removeClass('btn_to_hover');" onmouseover="jQuery(jQuery(this).parent()).removeClass('btn_to_normal');jQuery(jQuery(this).parent()).addClass('btn_to_hover');">&nbsp;</div>
+                 </div>
+             </div>            
+             <div class="AUTOright_panel" id="right_panel">
+                 <div class="btn_to_normal floatleft" style="margin-top:109.5px">
+                     <div class="AUTObtn_right_to_left btn_to_disabled_left" id="right_panel_btn_to_left" onmouseout="jQuery(jQuery(this).parent()).addClass('btn_to_normal');jQuery(jQuery(this).parent()).removeClass('btn_to_hover');" onmouseover="jQuery(jQuery(this).parent()).removeClass('btn_to_normal');jQuery(jQuery(this).parent()).addClass('btn_to_hover');">&nbsp;</div>
+                 </div>
+                 <div class="AUTOright_panel_content2 content_2 floatleft" id="right_panel_content_2">                
+                     <div class="font_size_2 font_color_2 AUTOMquotaLabel" style="margin-left:30px;">QUOTA</div>
+                     <div style="clear:both;height:0px;"></div>                        
+                     <div class="AUTOchar_wrapper_right" id="char_wrapper_right">
+                         <div id="char_content_right">
+                             &nbsp;
+                         </div>
+                     </div>                    
+                     <div style="clear:both;height:0px;"></div>
+                     <div class="AUTOpaginator_right_side paginator_wrapper" id="paginator_wrapper_right_side">
+                         &nbsp;
+                     </div>       
+                 </div>
+                 <div class="btn_to_normal floatright" style="margin-top:109.5px">
+                     <div id="right_panel_btn_to_right" class="AUTObtn_right_to_right btn_to_disabled_right" onmouseover="jQuery(jQuery(this).parent()).removeClass('btn_to_normal');jQuery(jQuery(this).parent()).addClass('btn_to_hover');" onmouseout="jQuery(jQuery(this).parent()).addClass('btn_to_normal');jQuery(jQuery(this).parent()).removeClass('btn_to_hover');">
+                        &nbsp;
+                    </div>
+                 </div>
+             </div>
+         </div>
+         <div style="clear:both;height:0px;"></div>
+         <div class="AUTOfooter" id="footer">
+             <div class="AUTOdisclaimer_text font_size_1 font_color_2" id="footer_div1">
+                 <div style="margin-top:12px;margin-left:12px;">
+                     <span id="j_id0:j_id29">
+                         <span id="j_id0:j_id29:j_id30:j_id31" style="*padding-left:1px;" class="bubbleText ">
+                             <span class="trigger" style="">Disclaimer: The estimates above do not reflect actual cash earnings</span>
+                         </span>
+                     </span>
+                 </div>
+             </div>
+             <div id="footer_div2">
+                 <table class="table_center" cellpadding="0" cellspacing="0">
+                     <tbody>
+                         <tr>
+                             <td class="font1">
+                                 <div class="AUTObtn_calculate btn_green_wrapper_normal" id="btn_estimate" onmouseout="jQuery(this).removeClass('btn_green_wrapper_hover');jQuery(this).addClass('btn_green_wrapper_normal');" onmouseover="jQuery(this).removeClass('btn_green_wrapper_normal');jQuery(this).addClass('btn_green_wrapper_hover');" title="Run Estimates">
+                                     <div class="btn_green_left">&nbsp;</div>
+                                     <div class="btn_green_middle">Calculate Estimate</div>
+                                     <div class="btn_green_right">&nbsp;</div>
+                                 </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>            
+             </div>
+             <div id="footer_div3">
+                 <a class="logo" href="http://www.xactlyexpress.com/" target="blank">&nbsp;</a>
+             </div>
+         </div>
+         <div style="display: none;" id="message_box">&nbsp;</div>
+     </div>
+     <div style="clear:both;height:0px;"></div>
+     <div id="footer_shadow">
+         <div id="footer_shadow_right">&nbsp;</div>
+         <div id="footer_shadow_left">&nbsp;</div>
+     </div>
+     <input id="opp_id" style="display:none;" value="006j0000002YG2tIA1" type="text"></input>
+     <input class="hidden" id="function_to_call" value="OpportunityExt.estimate"></input>
+     <input class="hidden" id="function_to_call_load_setup" value="OpportunityExt.loadSetupEstimator"></input>
+     <input class="hidden" id="function_to_call_save_setup" value="OpportunityExt.saveSetupEstimator"></input>
+     <input class="hidden" id="label_saving_settings" value="Saving settings"></input>
+     <input class="hidden" id="label_settings_saved" value="Settings saved"></input>
+     <input class="hidden" id="label_successful" value="Successful"></input>
+     <input class="hidden" id="label_failed" value="Failed"></input>
+     <input class="hidden" id="label_all" value="All"></input>
+     <script>
+         var bubbleImagesPath = "{!URLFOR($Resource.SDOpages ,'codabubble/images')}";   
+         var nbrSeparator = ',';
+         var nbrDecimal = '.';
+         var on_load_message = String("");
+     </script>
+     <!-- Body events -->
+     <script type="text/javascript">
+         function bodyOnLoad(){setFocusOnLoad();if ((window.sfdcPage) && (sfdcPage.executeOnloadQueue)){sfdcPage.executeOnloadQueue();};if(window.PreferenceBits){window.PreferenceBits.prototype.csrfToken="QLQ9_oE2j45ShPIDISVL5T6e2KaRysjbtxqDIDTwVotjpLQwxjOiViH_kNLvhu9nklwId1ErKKto0OmdP8hWSAzzvgf_UF_U2DZKYPKsvfxxh1QdiQ8IOTB_iFrXjD6iP1DPoIJ.zceHOhPsxQg7AQ4KPfyIJFSo2lw9MPrLwO5ve1E2ahcIpUezQnjyJA1G1X9MfA==";};if(window.Jiffy){if(Jiffy.onLoad)Jiffy.onLoad();if(Jiffy.ui&&Jiffy.ui.onLoad)Jiffy.ui.onLoad()}}function bodyOnBeforeUnload(){if ((window.sfdcPage) && (sfdcPage.executeOnBeforeUnloadQueue)){sfdcPage.executeOnBeforeUnloadQueue();};}function bodyOnFocus(){closePopupOnBodyFocus();}function bodyOnUnload(){}
+     </script>
+     <!-- End page content -->
+     <span class="rcCatcher" id="rcCatcher"></span>
+     <span class="rcCatcher2" id="rcCatcher2"></span>
+     <table class="popupBub generaltable" cellpadding="0" cellspacing="0">
+         <tbody>
+             <tr class="generaltable">
+                 <td class="generaltable"></td>
+                 <td class="generaltable"></td>
+                 <td class="generaltable"></td>
+             </tr>
+             <tr class="generaltable">
+                 <td class="corner topleft bgVertical generaltable"></td>
+                 <td class="top bgVertical generaltable"></td>
+                 <td class="corner topright bgVertical generaltable"></td>
+             </tr>
+             <tr class="generaltable">
+                 <td class="left bgHorizontal generaltable"></td>
+                 <td class="bubble_content generaltable">
+                     <div class="cont" style="border:0;">test</div>
+                 </td>
+                 <td class="right bgHorizontal generaltable"></td>
+             </tr>
+             <tr class="generaltable">
+                 <td class="corner bottomleft bgVertical generaltable"></td>
+                 <td class="bottom bgVertical generaltable">
+                     <center>
+                         <div class="imgBubTail bgVertical" style="height:29px;width:29px;">&nbsp;</div>
+                     </center>
+                 </td>
+                 <td class="corner bottomright bgVertical generaltable"></td>
+             </tr>
+         </tbody>
+     </table>
+     <div style="display: none;" id="superbox-overlay"></div>
+     <div style="display: none;" id="superbox-wrapper">
+         <div id="superbox-container">
+             <div id="superbox" tabindex="0">
+                 <div class="close">
+                     <a tabindex="0" role="button">
+                         <span></span>
+                     </a>
+                 </div>
+                 <div id="superbox-innerbox"></div>
+                 <p style="display: none;" class="nextprev">
+                     <a class="prev" tabindex="0" role="button">
+                         <strong>
+                             <span>Previous</span>
+                         </strong>
+                     </a>
+                     <a class="next" tabindex="0" role="button">
+                         <strong>
+                             <span>Next</span>
+                         </strong>
+                     </a>
+                 </p>
+             </div>
+             <p style="display: none;" class="loading">Loading...</p>
+         </div>
+     </div>
+     <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.SDOpages, 'js/XactlySMBJavascript.js')}"></script>
+     
+     <script type="text/javascript">var payment1 = {name:"Commission - Product",origin_earned:1537.78,new_earned:3457.78};
+     var payment2 = {name:"Commission - Services",origin_earned:5118.09,new_earned:7368.09};
+     var payment3 = {name:"Product - Bonus",origin_earned:0.00,new_earned:0.00};
+     var payment4 = {name:"Services - Bonus",origin_earned:0.00,new_earned:0.00};
+     var payment5 = {name:"Special Incentives",origin_earned:4000.00,new_earned:4400.00};
+     var payments = new Array(payment1,payment2,payment3,payment4,payment5);
+     var credit1 = {name:"Products",frequency:"Jan to Dec",quota_goal:7200000.00,origin_quota:35.90,origin_credit:2584518.00,new_quota:41.23,new_credit:2968518.00};
+     var credit2 = {name:"Services",frequency:"Jan to Dec",quota_goal:14800000.00,origin_quota:12.18,origin_credit:1803317.50,new_quota:13.20,new_credit:1953317.50};
+     var credit3 = {name:"Products",frequency:"Apr to Jun",quota_goal:1800000.00,origin_quota:33.04,origin_credit:594732.00,new_quota:54.37,new_credit:978732.00};
+     var credit4 = {name:"Services",frequency:"Apr to Jun",quota_goal:3700000.00,origin_quota:10.94,origin_credit:404960.00,new_quota:15.00,new_credit:554960.00};
+     var credit5 = {name:"Products",frequency:"Apr",quota_goal:600000.00,origin_quota:99.12,origin_credit:594732.00,new_quota:163.12,new_credit:978732.00};
+     var credit6 = {name:"Services",frequency:"Apr",quota_goal:1233333.33,origin_quota:32.83,origin_credit:404960.00,new_quota:45.00,new_credit:554960.00};
+     var credits = new Array(credit1,credit2,credit3,credit4,credit5,credit6);</script>
+     <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.SDOpages, 'pages/js/XactlySMBOpportunityExt.js')}"></script>
+     </body>
+     
+</apex:page>

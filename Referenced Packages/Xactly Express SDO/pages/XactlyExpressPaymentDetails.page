@@ -1,0 +1,123 @@
+<apex:page sidebar="false" showHeader="false" standardStylesheets="false">
+<head>
+<link class="user" href="{!URLFOR($Resource.SDOpages,'css/XactlySMBStyles.css')}" rel="stylesheet" type="text/css"/>
+<link class="user" href="{!URLFOR($Resource.SDOpages,'pages/css/XactlySMBPaymentDetails.css')}" rel="stylesheet" type="text/css"/>
+</head><body><div id="_GPL_e6a00_parent_div" style="position: absolute; top: 0px; left: 0px; width: 1px; height: 1px; z-index: 2147483647;">
+</div><span id="j_id0:j_id1">
+<div id="cursor" style="background: none repeat scroll 0% 0% transparent; display: none; width: 32px; height: 32px; position: absolute; top: 591px; left: 271px; z-index: 10000; border: medium none; padding: 0px;">
+<img src="{!URLFOR($Resource.SDOpages,'img/icons/loader2.gif')}"/></div></span>
+<form id="j_id0:theForm" name="j_id0:theForm" method="post" action="https://c.na7.visual.force.com/apex/XactlySMBPaymentDetails" enctype="application/x-www-form-urlencoded">
+
+        <div class="header"></div>
+        <div class="content">
+            <div id="centerContainer">
+                <div style="float: right; margin: 29px 4px 0 0;"><span id="j_id0:theForm:j_id5">
+                  </span>
+                </div>
+                <div style="float: left; margin-top: 25px;margin-bottom:5px;">                     
+                    <div style="float: left;">
+                        <span style="font-family: 'ProximaNovaSemiBold' !important;font-size: 22px;color: rgb(216, 128, 69); margin-left: 10px;">Payment Details</span>
+                    </div><div id="j_id0:theForm:j_id15" style="float:left;margin-top:5px;margin-left:5px;">
+                    	<div id="j_id0:theForm:dropdownsFilter" class="dropdownsFilter"><span id="j_id0:theForm:j_id16">
+                     </span>
+</div></div>                   
+                </div>
+                <div style="clear: both;"></div>
+                <div style="clear: both; margin-bottom: 2px;"></div><div id="j_id0:theForm:errorMsg"><span id="j_id0:theForm:j_id31"><div id="j_id0:theForm:j_id31:j_id32:j_id33" class="errorMsg XactlySMBErrorMsg"></div></span></div>
+                
+ 
+                 
+                <div class="mainCornerDiv" id="mainCornerDiv" style="border-radius:6px;-moz-border-radius:6px;-wiebkit-border-radius:6px;font-size: 10pt;background-color: #7C7B79;padding:5px 10px 10px 10px;width:auto">
+                    <div style="font-weight:bold;color:white;margin-top:2px;margin-bottom:12px;float:left;margin-top:10px;">Deal Level Results</div>
+                    <div style="font-weight:bold;color:white;margin-bottom:5px;float:left;margin-left:88%;position:absolute;margin-top:10px;width:11%;"> 
+                        
+                    </div>
+                    <div style="clear: both;"></div> 
+                  
+                    <div class="mainDiv" id="mainDiv" style="width:100%;height: 440px;overflow: auto;"><div id="j_id0:theForm:mainTableCont">
+                   
+             		<apex:outputPanel layout="none" rendered="{!IF($CurrentPage.parameters.pageToShow=='1',true,false)}">
+                   		<c:XactlyExpressDefinePayments1 ></c:XactlyExpressDefinePayments1>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="none" rendered="{!IF($CurrentPage.parameters.pageToShow=='2',true,false)}">
+                   		<c:XactlyExpressDefinePayments2 ></c:XactlyExpressDefinePayments2>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="none" rendered="{!IF($CurrentPage.parameters.pageToShow=='3',true,false)}">
+                   		<c:XactlyExpressDefinePayments3 ></c:XactlyExpressDefinePayments3>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="none" rendered="{!IF($CurrentPage.parameters.pageToShow=='4',true,false)}">
+                   		<c:XactlyExpressDefinePayments4 ></c:XactlyExpressDefinePayments4>
+                    </apex:outputPanel>
+                    <apex:outputPanel layout="none" rendered="{!IF($CurrentPage.parameters.pageToShow=='5',true,false)}">
+                   		<c:XactlyExpressDefinePayments5 ></c:XactlyExpressDefinePayments5>
+                    </apex:outputPanel>
+               
+                   
+                    
+                    
+                            
+					</div>
+                    </div>
+                    <div style="clear: both;">&nbsp;</div>
+                </div>
+                       
+                 
+                <div class="ui-draggable" id="dragBar" style="width:100%;position:absolute;display:none;">
+                    <img class="img-dragToResize" src="{!URLFOR($Resource.SDOpages,'img/layout/dragToResize.jpg')}" style="border:none;width: 100%;"/>
+                </div>
+                
+                <br/>
+
+                <div style="clear: both;">&nbsp;</div>
+                   <div id="detailDiv" class="detailDiv" style="display:none;top:2;">
+                    <div class="btnToCenter btnAction" style="float:right;margin-right:15px;">   
+                        <div class="separateBtn">
+                            <a href="javascript:;" onclick="detailsHandler.switchDivsDisplay();jQuery('.detailDiv').hide();jQuery('.detailCornerDiv').hide();jQuery('#closeDetailLabel').hide();">
+                                <div class="rightBtnOrange">
+                                    <div class="leftBtnOrange">
+                                        <div style="color: white;" class="middleBtnOrange">
+                                            >>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>                
+                        </div>
+                    </div>
+                    </div>
+                    <div id="closeDetailLabel" style="display:none;float: right;color:#426E83;font-weight: bold;font-size:10pt;padding-top:5px;">Close Details</div>
+                    <div style="clear: both; margin-bottom: 2px;"></div>
+                   
+             <div style="font-size: 10pt; background-color: rgb(194, 111, 45); padding: 5px 10px 10px; height: 150px;display:none;overflow:hidden;" id="detailCornerDiv" class="detailCornerDiv">
+                        <div style="font-weight:bold;color:white;margin-bottom:5px;">Hold and Release Information</div><div class="detailTableCont" style="width:100%;height:150px;overflow: auto;min-height:150px;" id="detailTableCont">
+                        <table style="min-width: 980px;width:100%"><thead><tr><th>Edit</th><th>Period Released</th><th>Event</th><th>Deal Held Amount</th><th>Event Held Amount</th><th>Released</th><th>Adjustment</th><th>Pending Released</th><th>Balance</th></tr></thead>
+                        <tbody>
+                        </tbody>
+                        </table></div>
+                    </div>  <div style="clear: both;"></div>    
+                <div id="commentBox"></div>
+                <div id="liaCommentBox"></div>
+               
+            </div>
+            <b><span style="margin-left:10px;color:#dd0000;"></span>
+            </b>
+            <div style="clear: both;">&nbsp;</div>
+            </div>
+         <script id="j_id0:theForm:j_id112" type="text/javascript">reloadDropDownsFiscalYear=function(){};
+</script><script id="j_id0:theForm:j_id113" type="text/javascript">reloadDropDownsPeriods=function(){};
+</script><script id="j_id0:theForm:j_id114" type="text/javascript">reloadDropDownsPlan=function(){};
+</script><script id="j_id0:theForm:j_id115" type="text/javascript">reloadAll=function(){};
+</script><script id="j_id0:theForm:j_id116" type="text/javascript">reloadDropDownsPayment=function(){};
+</script><script id="j_id0:theForm:j_id117" type="text/javascript">goToPageAF=function(){};
+</script><script id="j_id0:theForm:j_id118" type="text/javascript">loadDetailAF=function(){waitOff();detailsHandler.switchDivsDisplay(212);jQuery('.detailCornerDiv').show();jQuery('#closeDetailLabel').show();jQuery('.detailDiv').show();jQuery('.detailTableCont').css('height','150px');};
+</script><div id="j_id0:theForm:j_id140"></div>
+</form>
+
+        <div class="hidden">
+           
+        </div><span id="j_id0:j_id120">
+		<script language="javascript" src="{!URLFOR($Resource.SDOpages,'/js/XactlySMBJavascript.js')}" type="text/javascript"></script></span>
+        <script src=" {!URLFOR($Resource.SDOpages,'jquery-ui-1.8.9/js/jquery-ui-1.8.9.custom.min.js')}" type="text/javascript"></script>
+        <script language="javascript" src="{!URLFOR($Resource.SDOpages,'/pages/js/XactlySMBPaymentDetails.js')}" type="text/javascript"></script>
+        <table class="popupBub generaltable" cellpadding="0" cellspacing="0"><tbody><tr class="generaltable"><td class="generaltable"></td><td class="generaltable"></td><td class="generaltable"></td></tr><tr class="generaltable"><td class="corner topleft bgVertical generaltable"></td><td class="top bgVertical generaltable"></td><td class="corner topright bgVertical generaltable"></td></tr><tr class="generaltable"><td class="left bgHorizontal generaltable"></td><td class="bubble_content generaltable"><div class="cont" style="border:0;">test</div></td><td class="right bgHorizontal generaltable"></td></tr><tr class="generaltable"><td class="corner bottomleft bgVertical generaltable"></td><td class="bottom bgVertical generaltable"><center><div class="imgBubTail bgVertical" style="height:29px;width:29px;">&nbsp;</div></center></td><td class="corner bottomright bgVertical generaltable"></td></tr></tbody></table><div style="display: none;" id="superbox-overlay"></div><div style="display: none;" id="superbox-wrapper"><div id="superbox-container"><div id="superbox" tabindex="0"><div class="close"><a tabindex="0" role="button"><span></span></a></div><div id="superbox-innerbox"></div><p style="display: none;" class="nextprev"><a class="prev" tabindex="0" role="button"><strong><span>Previous</span></strong></a><a class="next" tabindex="0" role="button"><strong><span>Next</span></strong></a></p></div><p style="display: none;" class="loading">Loading...</p></div></div><iframe class="hidden" src="https://www.xactlycorp.com/product-analytics/express/app/XactlySMBPaymentDetails.php?orgName=Timba+DEV-RodRo&amp;orgId=00Dj0000000Du5vMAG&amp;currentUserProfile=Sales+Administrator&amp;currentUserName=Rodrigo+Rossi"></iframe></body>
+		 
+</apex:page>

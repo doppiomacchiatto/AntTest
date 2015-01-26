@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<HomePageComponent xmlns="http://soap.sforce.com/2006/04/metadata">
+    <body>&lt;div style=&quot;height:201px; width:201px;&quot;&gt;&lt;iframe src=&quot;/apex/XactlyExpressQuotaResult&quot; frameborder=&quot;0px&quot; style=&quot;border : 0px; height:200px; width:200px;&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;</body>
+    <pageComponentType>htmlArea</pageComponentType>
+    <width>narrow</width>
+</HomePageComponent>

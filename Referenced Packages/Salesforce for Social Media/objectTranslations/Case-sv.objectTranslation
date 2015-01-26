@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fields>
+        <label>Författarens externa id</label>
+        <name>Author_External_Id__c</name>
+    </fields>
+    <fields>
+        <label>Författarens användarnamn</label>
+        <name>Twitter_Username__c</name>
+    </fields>
+    <fields>
+        <label>Konversationens externa ID</label>
+        <name>twitterId__c</name>
+    </fields>
+</CustomObjectTranslation>

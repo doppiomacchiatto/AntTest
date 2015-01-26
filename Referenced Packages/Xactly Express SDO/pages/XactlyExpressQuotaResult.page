@@ -1,0 +1,124 @@
+<apex:page showHeader="false" sidebar="false">
+     <form> 
+     <!--MAIN CONTENT-->
+         <div class="mainContent" style="height:201px; width:197px;">
+         <!--WIDGET-->
+             <div id="widgetWrapper" layout="block">
+                 <div id="div_checkStatus" >
+                     <input type="text" value="true" style="display:none;" id="firstLoad"></input>
+                 </div>
+                 <div id="widget" class="AUTOMwidget noSelectable">
+                     <div class="widgetBackground topWidget" >
+                         <div style="margin-top: 0px;padding-top: 13px;padding-left: 7px;">
+                             <div class="swirly" style="display: none;">
+                                 <img width="18px" height="18px" src="{!URLFOR($Resource.SDOpages ,'img/icons/loader2.gif')}" alt="Waiting"></img>
+                             </div>
+                             <span id="resultsDetails_span" >
+                                 <div title="CREDIT OH 27" class="resultName">
+                                     <span id="bubble_span">
+                                         <span class="bubbleText" style="position: absolute;" id="bubbleText_span">
+                                             <span style="" class="">&nbsp;</span>
+                                         </span>
+                                     </span>
+                                 </div>
+                                 <div class="timeFrame">
+                                     <div class="timeLabel"></div>
+                                 </div>
+                             </span>
+                         </div>
+                     </div>
+                     <div style="display: none;" class="menuShadow">&nbsp;</div>
+                     <div class="widgetBackground widgetBg">
+                         <div id="content" style="height:126px;">
+                             <span id="content_span">
+                                 <div id="isEnabled" class="AUTOMisEnabled">
+                                     <span id="showResults">
+                                         <div id="resultsGaugeWrapper">
+                                             <div id="resultsGaugee" class="resultsGauge AUTOMresultsGaugee">
+                                                 <span id="resultsGaugee_span">
+                                                     <div class="containerChartsLayout" id="resultsGaugee_span_cont">
+                                                         <div rel="0.0" id="char_resultsGauge1" class="speedometer3">
+                                                             <svg version="1.1" width="163" height="163">
+                                                                 <desc>Created with Rapha?l</desc>
+                                                                 <defs/>
+                                                                 <image x="65" y="8" width="34" height="107" preserveAspectRatio="none" href="{!URLFOR($Resource.SDOpages, 'img/layout/needle3.png')}" transform="rotate(-5.3185683822358 81.5 81.5)"/>
+                                                             </svg>
+                                                             <div style="top: -66px; left: -8px; width: 64px; font-family: ProximaNovaSemiBold ; font-size: 16px; color: #9F9D9D; font-weight: bolder; text-align: center; position: relative;" id="div_char_resultsGauge1">0 %</div>
+                                                         </div>
+                                                     </div>
+                                                     <div style="display:none;">
+                                                         <img src="{!URLFOR($Resource.SDOpages, 'img/layout/back_speedometers.png')}"></img> 
+                                                         <img src="{!URLFOR($Resource.SDOpages, 'img/layout/express-needle.png')}"></img> 
+                                                         <img src="{!URLFOR($Resource.SDOpages, 'img/layout/back_speedometers2.png')}"></img>
+                                                         <img src="{!URLFOR($Resource.SDOpages, 'img/layout/express-needle2.png')}"></img> 
+                                                         <img src="{!URLFOR($Resource.SDOpages, 'img/layout/back_speedometers3.png')}"></img> 
+                                                         <img src="{!URLFOR($Resource.SDOpages, 'img/layout/needle3.png')}"></img>
+                                                     </div>
+                                                 </span>
+                                             </div>
+                                         </div>  
+                                     </span>
+                                     <div class="expandableMenuWrapper">
+                                         <div id="resizable" class="AUTOMresizable" >
+                                             <div id="expandableMenu" class=" expandableMenu AUTOMexpandableMenu menuBackground"  >
+                                                 <div class=" menuContent menuBackground" style="cursor: grab !important;">
+                                                     <div class="optionsWrapper" style="margin-top: 7px;">
+                                                         <div id="optionsResults" style="display: none;">
+                                                             Results
+                                                             <select value="" style="display: inline-block; width: 170px ; max-width: 170px;" size="1" onchange="showFrequencies(this.value);" multiselect="false" id="results" class="AUTOMresults">
+                                                             </select>
+                                                             <br/><br/>
+                                                         </div> 
+                                                         <div id="optionsFrequency" style="display: none;margin-top:59px;">
+                                                             What Frequency? 
+                                                             <select value="annually" style="display: inline-block; width: 170px; margin-left: 1px;" size="1" onchange="updateFrequencies(this.value);" multiselect="false" id="frequenciesM" class="frq_month AUTOMfrequenciesM">
+                                                             </select>
+                                                         </div>
+                                                     </div>
+                                                         <div id="updatevalues_div" >
+                                                         <input type="text" value="0" style="display:none;" id="selectedValue" class="AUTOMselectedValue"></input>
+                                                         <input type="text" value="" style="display:none;" id="selectedResult" class="AUTOMselectedResult"></input>
+                                                         <input type="text" value="" style="display:none;" id="indexResult" class="AUTOMselectedValue"></input>
+                                                         <input type="text" value="" style="display:none;" id="selectedFrequency" class="AUTOMselectedFrequency"></input>
+                                                         <input type="text" value="" style="display:none;" id="indexFrequency" class="AUTOMselectedValue"></input>
+                                                     </div>
+                                                 </div>
+                                             </div>  
+                                             <div id="div_menuHandler" >
+                                                 <div id="expandBtn" class="widgetIconSprite expandBtn AUTOMexpandBtn" style="display:inline !important;margin-top: -21px"></div>
+                                             </div>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </span>
+                         </div>                          
+                     </div>
+                     <div class="widgetBackground bottomWidget">
+                         <a class="widgetIconSprite xactlyLogo" href="http://www.xactlyexpress.com/" target="blank"></a>
+                     </div>
+                 </div>
+             </div>
+     <!-- HIDDEN --> 
+             <div style="display:none">
+                 <input class="hidden AUTOMurl_img_gauge_needle_3" id="url_img_gauge_needle_3" value="{!URLFOR($Resource.SDOpages, 'img/layout/needle3.png')}" />
+                 <input class="chartsJsUrl AUTOMchartsJsUrl" value="{!URLFOR($Resource.SDOpages ,'components/js/XactlySMBCharts.js')}" />
+             </div>
+         </div>
+     </form>
+      <!-- CSS AND SCRIPTS -->
+     <apex:stylesheet value="{!URLFOR($Resource.xcsdo__SDOpages ,'components/css/XactlySMBCharts.css')}" />
+     <apex:stylesheet value="{!URLFOR($Resource.xcsdo__SDOpages ,'pages/css/XactlySMBSalesforceSideBarResults.css')}" /> 
+     <script type="text/javascript">
+         var hardResult1 = "Products";
+         var hardResult2 = "Services";
+         var hardResults = new Array(hardResult1,hardResult2);
+         var hardFrequencies = new Array("Annually","Monthly","Quarterly","Quarter-to-Date (Monthly)","Year-to-Date (Monthly)","Year-to-Date (Quarterly)");
+         var hardFrequenciesLabels = new Array("Jan to Apr", "Apr", "Apr to Apr", "Apr to Apr", "Jan to Apr", "Jan to Jun");
+         var hardPercentages1 = new Array(36,99,33,33,108,73);
+         var hardPercentages2 = new Array(12,33,11,33,37,24);
+         var hardPercentages = new Array(hardPercentages1, hardPercentages2);
+     </script>
+     <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.SDOpages, 'js/XactlySMBJavascript.js')}" />
+     <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.SDOpages, 'jquery-ui-1.8.9/js/jquery-ui-draggable.js')}" />
+     <script type="text/javascript" language="javascript" src="{!URLFOR($Resource.SDOpages, 'pages/js/XactlySMBSalesforceSideBarResults.js')}" />
+</apex:page>

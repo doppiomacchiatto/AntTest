@@ -1,0 +1,29 @@
+<apex:page >
+<html>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet" type="text/css"></link>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://s3.amazonaws.com/idme/assets/idmeModal.min.js"></script>
+<body>
+  <apex:pageBlock >
+<apex:pageBlockSection id="idme">
+<apex:pageBlockSectionItem id="fr" dataStyleClass="font-family: Open Sans, Arial, san-serif;">
+  <span style="display:block; clear:both; color:#000000; font-size:11px; font-weight:600; margin-bottom:12px;">
+    MILITARY affiliation with ID.me
+  </span>
+  <a class="login-trigger" href="https://api.id.me/oauth/authorize?client_id=69c42560addee7012d81d188a7d75f40&redirect_uri=https://na16.salesforce.com/apex/idme3&response_type=code&scope=military" style="display:inline-block; background:#ffffff; font-size:13px; color:#27a0e3; border:2px solid #edf0f2; border-radius:10px; padding:8px 16px; font-weight:600; text-decoration:none; margin: 6px 6px 6px 0;">
+    <img alt="Troop ID" src="https://s3.amazonaws.com/idme/assets/troop-id.png" border="0" style="vertical-align:middle; margin:0 3px 0 0;" height="16" width="21">
+    TROOP ID </img>
+  </a>
+  </apex:pageBlockSectionItem>
+  </apex:pageBlockSection>
+  <apex:pageBlockSection >
+  <span style="display:block; clear:both; color:#000000; font-size:11px; font-weight:600; margin-top:12px;">
+    <img alt="Lock" src="https://s3.amazonaws.com/idme/assets/lock.png" style="vertical-align:middle; margin:0 3px 5px 0;" width="8">
+    Verification by ID.me &bull;</img>
+    <a href="#" style="color:#27a0e3; text-decoration:none;" id="modal-open">What is ID.me?</a>
+  </span>
+  </apex:pageBlockSection>
+</apex:pageBlock>
+</body>
+</html>
+</apex:page>
