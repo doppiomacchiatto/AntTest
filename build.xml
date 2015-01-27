@@ -2,61 +2,15 @@
     <property file="build.properties" />
     <property environment="env" />
     <!-- SVN lib-->
-    <path id="svnant.classpath">
-        <fileset dir="${lib.dir}">
-            <include name="**/*.jar" />
-        </fileset>
-    </path>
-    <!-- load the svn task -->
-    <typedef resource="org/tigris/subversion/svnant/svnantlib.xml" classpathref="svnant.classpath" />
-    <svnSetting svnkit="true" javahl="false" username="${svn.username}" password="${svn.password}" id="svn.settings" />
 	
     <!-- Test ANT is correctly wired -->
     <target name="test">
         <echo message="Starting Deploy" />
-        <sf:deploy username="${sf.username.sbx}" password="${sf.password.sbx}" serverurl="${sf.serverurl.sbx}" deployRoot="singleObject" checkonly="true" />
+        <sf:deploy username="${sf.username.sbx}" password="${sf.password.sbx}" serverurl="${sf.serverurl.sbx}" deployRoot="./src/singleObject" checkonly="true" />
         <echo message="Deploy Complete" />
     </target>
     
-	<!-- Start exercise 3 -->
-    <target name="exercise3a">
-        <echo message="Starting Deploy 3a" />
-        <sf:deploy username="${sf.username.sbx}" password="${sf.password.sbx}" serverurl="${sf.serverurl.sbx}" deployRoot="exercise3a" runAllTests="true" logType="Detail" rollbackOnError="true" />
-        <echo message="Deploy Complete 3a" />
-    </target>
-    <target name="exercise3b">
-        <echo message="Starting Deploy 3b" />
-        <sf:deploy username="${sf.username.sbx}" password="${sf.password.sbx}" serverurl="${sf.serverurl.sbx}" deployRoot="exercise3b" logType="Detail" rollbackOnError="true" />
-        <echo message="Deploy Complete 3b" />
-    </target>
-    <target name="exercise3c">
-        <echo message="Starting Deploy 3c" />
-        <sf:deploy username="${sf.username.sbx}" password="${sf.password.sbx}" serverurl="${sf.serverurl.sbx}" deployRoot="exercise3c" logType="Detail" rollbackOnError="true" />
-        <echo message="Deploy Complete 3c" />
-    </target>
-    <!-- End exercise 3 -->
 	
-    <!-- Start exercise 5 -->
-    <target name="exercise5">
-        <property name="src.url" value="${base.url}/${projectname}/src" />
-        <property name="dest.url" value="${base.url}/${createbranch}" />
-        <echo message="Source =  ${src.url}" />
-        <echo message="Destination =  ${dest.url}" />
-        
-		<echo message="Deleting existing branch ${dest.url}" />
-        <svn refid="svn.settings" failonerror="false">
-            <delete url="${dest.url}" message="delete" />
-        </svn>
-        
-		<echo message="Checkout ${projectname}" />
-        <svn refid="svn.settings">
-            <checkout url="${src.url}" destPath="exercise5_${createbranch}" />
-        </svn>
-        <echo message="Checkout ${projectname} complete" />
-        
-		<echo message="Copying package.xml" />
-        <copy file="exercise5/package.xml" tofile="exercise5_${createbranch}/package.xml" overwrite="true" />
-        
 		<echo message="Deploying to prod" />
         <sf:deploy username="${sf.username.prod}" password="${sf.password.prod}" serverurl="${sf.serverurl.prod}" deployRoot="exercise5_${createbranch}/" />
         <echo message="Deploying to prod complete" />
@@ -67,12 +21,6 @@
         </svn>
         <echo message="Branch Created" />
     </target>
-    <!-- End exercise 5 -->
-	
-	
-	
-	
-	
 	
     <!-- other tasks that are part of the migration tools samples-->
     <target name="bulkRetrieve">
